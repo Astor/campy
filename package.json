@@ -1,0 +1,31 @@
+{
+  "name": "campy-services",
+  "version": "1.0.0",
+  "description": "CAMPY Services is software for Product Campaigns managing contacts, volunteering and newsletters.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "npx tsc -w",
+    "start": "node --env-file=.env src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "campaign",
+    "newsletter",
+    "sendgrid"
+  ],
+  "author": "astordigital@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "mysql2": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.26",
+    "typescript": "^5.4.2"
+  }
+}

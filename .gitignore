@@ -1,0 +1,14 @@
+*.env
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+
+node_modules
+
+src/*.js
+src/*/*.js
+
+.vscode/
+.idea/
+build/
