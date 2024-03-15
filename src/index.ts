@@ -4,6 +4,7 @@ import express from 'express';
 import { IContactMessage, IVolunteerMessage} from './messages';
 import { contactMessageHandler } from './services/contact';
 import { volunteerMessageHandler } from './services/volunteer';
+import { decodeMessage } from './services/crypto';
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,18 @@ const hostname = process.env.HOSTNAME;
 const port = parseInt(process.env.PORT || '5000');
 const verifiedEmail = process.env.VERIFIED_EMAIL || 'VerifiedEmailMissing';
 console.log('verifiedEmail', verifiedEmail);
+
+// Server KeyPair (Todo pull from DB or Secrets)
+const SERVER_PUBLIC_KEY = process.env.SERVER_PUBLIC_KEY || 'ServerPublicKeyMissing';
+const SERVER_PRIVATE_KEY = process.env.SERVER_PRIVATE_KEY || 'ServerPrivateKeyMissing';
+
+// Campaign Public Key (Todo pull from DB or Secrets)
+const CAMPAIGN_PUBLIC_KEY = process.env.CAMPAIGN_PUBLIC_KEY || 'CampaignPublicKeyMissing';
+
+const keyPair = {
+  pk: SERVER_PUBLIC_KEY,
+  sk: SERVER_PRIVATE_KEY
+}
 
 // ROUTES
 
@@ -37,27 +50,43 @@ app.get('/ping', (_, res) => {
 
 // POST contact method route
 app.post('/service/contact', async (req, res) => {
-  console.log(req.body);
-  let msg:IContactMessage = {
-    name: req.body.name,
-    email: req.body.email,
-    message: req.body.message
-  };
-  let result = await contactMessageHandler(verifiedEmail, msg);
-  res.send({ message: 'Contact data received', success: result });
+  try {
+    const messageBody = req.body;
+    const decoded = decodeMessage(messageBody, keyPair.sk);
+    const contactMessage = JSON.parse(decoded.toString('utf-8'));
+
+    let msg:IContactMessage = {
+      name: contactMessage.name,
+      email: contactMessage.email,
+      message: contactMessage.message
+    };
+
+    let result = await contactMessageHandler(verifiedEmail, msg);
+    res.send({ message: 'Contact data received', success: result });
+  } catch (error:any) {
+    res.send({ message: 'Contact error', error:error.message, success: false });
+  }
 });
 
 // POST volunteer method route
 app.post('/service/volunteer', async (req, res) => {
-  console.log(req.body);
-  let msg:IVolunteerMessage = {
-    email: req.body.email,
-    name:  req.body.name,
-    phone: req.body.phone,
-    activities: req.body.activities
-  };
-  let result = await volunteerMessageHandler(verifiedEmail, msg);
-  res.send({ message: 'Volunteer data received', success: result });
+  try {
+    const messageBody = req.body;
+    const decoded = decodeMessage(messageBody, keyPair.sk);
+    const volMessage = JSON.parse(decoded.toString('utf-8'));
+  
+    let msg:IVolunteerMessage = {
+      email: volMessage.email,
+      name:  volMessage.name,
+      phone: volMessage.phone,
+      activities: volMessage.activities
+    };
+    
+    let result = await volunteerMessageHandler(verifiedEmail, msg);
+    res.send({ message: 'Volunteer data received', success: result });
+  } catch (error:any) {
+    res.send({ message: 'Volunteer error', error:error.message, success: false });
+  }
 });
 
 /**
