@@ -10,16 +10,19 @@ Unlock the potential of your campaigns with CAMPY, the leading Software as a Ser
 
 ## Key Features
 
--**Integrated APIs**: Seamlessly manage your campaign's contacts, volunteers, newsletters, and polls with our robust API and Client API. These tools are designed to integrate effortlessly into your existing systems, providing a streamlined experience that saves time and enhances efficiency.
--**Desktop Administration**: Gain complete oversight of your campaign operations with our Desktop Administration tool. Its intuitive design ensures that managing your campaign's moving parts is simpler and more effective than ever before.
+**Integrated APIs**: Seamlessly manage your campaign's contacts, volunteers, newsletters, and polls with our robust API and Client API. These tools are designed to integrate effortlessly into your existing systems, providing a streamlined experience that saves time and enhances efficiency.
+
+**Desktop Administration**: Gain complete oversight of your campaign operations with our Desktop Administration tool. Its intuitive design ensures that managing your campaign's moving parts is simpler and more effective than ever before.
 
 ## Unmatched Data Security
 
 At CAMPY, we understand the paramount importance of data security. Our end-to-end encryption protocol ensures that your campaign's data is protected at every stage:
 
--**Encryption at the Source**: We use ECIES Public/Private Keys to encrypt form data on the client side, safeguarding information from the moment it's captured.
--**Secure Data Transmission**: Data is decrypted on our API server using ECIES Public/Private Keys, ensuring that it remains protected during transit.
--**Campaign-Specific Encryption**: Once on our API server, data is re-encrypted using the Campaign Public Keys. This means that only the campaign owner has access to their data, ensuring absolute confidentiality and security.
+**Encryption at the Source**: We use ECIES Public/Private Keys to encrypt form data on the client side, safeguarding information from the moment it's captured.
+
+**Secure Data Transmission**: Data is decrypted on our API server using ECIES Public/Private Keys, ensuring that it remains protected during transit.
+
+**Campaign-Specific Encryption**: Once on our API server, data is re-encrypted using the Campaign Public Keys. This means that only the campaign owner has access to their data, ensuring absolute confidentiality and security.
 
 With CAMPY, you can be confident that all your data is encrypted and stored with the highest security standards, giving you the freedom to focus on what truly matters—running successful campaigns.
 
