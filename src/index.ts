@@ -4,7 +4,7 @@ import express from 'express';
 import { IContactMessage, IVolunteerMessage} from './messages';
 import { contactMessageHandler } from './services/contact';
 import { volunteerMessageHandler } from './services/volunteer';
-import { decodeMessage } from './services/crypto';
+import { decodeMessage, encryptMessage } from './services/crypto';
 
 const app = express();
 app.use(express.json());
@@ -54,7 +54,7 @@ app.post('/service/contact', async (req, res) => {
     const messageBody = req.body;
     const decoded = decodeMessage(messageBody, keyPair.sk);
     const contactMessage = JSON.parse(decoded.toString('utf-8'));
-
+    // Contact message is not saved to DB. Ephemeral data.
     let msg:IContactMessage = {
       name: contactMessage.name,
       email: contactMessage.email,
@@ -74,11 +74,11 @@ app.post('/service/volunteer', async (req, res) => {
     const messageBody = req.body;
     const decoded = decodeMessage(messageBody, keyPair.sk);
     const volMessage = JSON.parse(decoded.toString('utf-8'));
-  
+    // Volunteer message data saved to DB. Non-ephemeral data.
     let msg:IVolunteerMessage = {
-      email: volMessage.email,
-      name:  volMessage.name,
-      phone: volMessage.phone,
+      email: encryptMessage(volMessage.email, CAMPAIGN_PUBLIC_KEY),
+      name:  encryptMessage(volMessage.name, CAMPAIGN_PUBLIC_KEY),
+      phone: encryptMessage(volMessage.phone, CAMPAIGN_PUBLIC_KEY),
       activities: volMessage.activities
     };
     
