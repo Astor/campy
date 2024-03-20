@@ -4,6 +4,11 @@ CAMPY offers a comprehensive Campaign Management Software solution, designed to 
 
 With CAMPY, you can effectively organize your contacts, mobilize volunteers, engage your audience through targeted newsletters, and gain valuable insights from polls. Our intuitive interface and robust functionality make it easier than ever to coordinate your campaigns, ensuring maximum impact and efficiency. Elevate your campaign strategy with CAMPY, the ultimate tool for modern campaign management.
 
+CAMPY is composed of several key components:
+- CAMPY : [API Business Layer](https://github.com/Astor/campy)
+- CAMPY-JS : [Browser Client Integration Layer](https://github.com/Astor/campy-js)
+- CAMPY-CLI : [Command Line Client responsible for generating keys, encryption and decryption for files](https://github.com/Astor/campy-cli)
+
 ## Introducing CAMPY: The Ultimate Campaign Management Solution
 
 Unlock the potential of your campaigns with CAMPY, the leading Software as a Service (SaaS) platform designed to revolutionize how you manage contacts, volunteers, newsletters, and polls. Our comprehensive suite, comprising both an API and a Client API alongside a user-friendly Desktop Administration interface, offers unparalleled flexibility and control, catering to all your campaign management needs.
